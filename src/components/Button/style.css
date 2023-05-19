@@ -1,0 +1,46 @@
+.button {
+	display: flex;
+    border-radius: 25px;
+    justify-content: center;
+    align-items: center;
+}
+
+.button__login--initial {
+    background-color: white;
+    height: 50px;
+    width: 150px;
+}
+
+.button__login--apply {
+    background-color: #D8E7FF;
+    height: 50px;
+    width: 100%;
+}
+
+.button__search {
+    background-color: #3C86F433;
+    height: 50px;
+    width: 150px;
+}
+
+.button__filter {
+    background-image: url(assets/options.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #3C86F433;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+.button__sort {
+    background-image: url(assets/sort_icon.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+}
+
+.button__sort--disabled {
+    display: none;
+}

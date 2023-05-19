@@ -1,0 +1,44 @@
+.itemLabel {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: start;
+	background-color: #FFFFFF;
+	font-size: 12px;
+	font-weight: 600;
+	min-width: 40px;
+	box-sizing: border-box;
+	padding: 10px;
+	word-wrap: break-word;
+}
+
+.itemLabel--1 {
+	flex: 0;
+}
+
+.itemLabel--2 {
+	flex: 1;
+}
+
+.itemLabel--3 {
+	flex: 2;
+}
+
+.itemLabel--4 {
+	flex: 1;
+}
+
+.itemLabel--5 {
+	flex: 1;
+	background-color: #D8E7FF;
+	border-radius: 12px;
+	margin: 8px;
+}
+
+.itemLabel--6 {
+	flex: 2;
+}
+
+.itemLabel--7 {
+	flex: 1;
+}

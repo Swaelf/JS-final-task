@@ -1,0 +1,11 @@
+.searchbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 50px;
+    width: 100%;
+    height: 50px;
+    gap: 20px;
+    box-sizing: border-box;
+
+}

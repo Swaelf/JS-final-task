@@ -1,0 +1,14 @@
+.topbar {
+    display: flex;
+    flex-direction: row-reverse;
+    //justify-content: space-between;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+    color: #1D1D1D;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #D8E7FF;
+}
