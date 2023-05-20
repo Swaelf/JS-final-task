@@ -17,7 +17,7 @@ export const TableRow = (props: Interface) => {
   return (
   	<Routes>
         <Route path='/*' element={
-          <div className='listRow'>
+          <div className='tableRow'>
             <TableRowElement 
               className='itemLabel itemLabel--1'
               text={ props.index }/> 
@@ -48,7 +48,7 @@ TableRow.defaultProps = {
   index: 0,
   entry: 'entry',
   entryNames: 'entry names',
-  genes: 'genes',
+  genes: 'geneName',
   organism: 'organism',
   sublocation: 'sublocation',
   length: 0

@@ -7,9 +7,11 @@
 	font-size: 12px;
 	font-weight: 600;
 	min-width: 40px;
+	height: auto;
 	box-sizing: border-box;
 	padding: 10px;
 	word-wrap: break-word;
+	outline: 1px solid red;
 }
 
 .itemLabel--1 {
@@ -32,7 +34,12 @@
 	flex: 1;
 	background-color: #D8E7FF;
 	border-radius: 12px;
+	justify-content: center;
+	padding: 0;
 	margin: 8px;
+	align-items: center;
+	text-align: center;
+	height: fit-content;
 }
 
 .itemLabel--6 {
