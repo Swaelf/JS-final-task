@@ -1,16 +1,19 @@
 import './App.css';
 
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
 import { PageLogin } from './components/PageLogin';
 import { PageHome } from './components/PageHome';
+import { LoginInitial } from './components/LoginInitial';
+import { LoginModal } from './components/LoginModal';
+import { LoginSignUp } from './components/LoginSignUp';
 
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyDn1RijVaoxSqZ3gCn6iKVmhWG8TbnxZWg",
   authDomain: "js-final-task-294b9.firebaseapp.com",
@@ -20,15 +23,50 @@ const firebaseConfig = {
   appId: "1:950374001771:web:00465749f68d417b58952e"
 };
 
-// Initialize Firebase
-const app0 = initializeApp(firebaseConfig);
+const auth0 = initializeApp(firebaseConfig);
+
+
 
 const App = () => {
+
+  const auth: any = useSelector((state: any) => state.auth);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+
+  useEffect(() => {
+    
+    console.log('auth', auth)
+
+    auth==='' ? navigate('/') : navigate('/Home');
+    // eslint-disable-next-line
+  }, [ auth ]); //we call it only once
+
+  
+      
+      
+  
   return (
-    <Fragment>
-      <PageLogin/>
-      <PageHome/>
-    </Fragment>
+    <Routes>
+      <Route path='/Login' element={
+        <div className='initialPage'>
+          <LoginModal/>
+        </div>}/>
+      <Route path='/SignUp' element={
+        <div className='initialPage'>
+          <LoginSignUp/>
+        </div>}/>
+      <Route path='/' element={
+        <div className='initialPage'>
+          <LoginInitial/>
+        </div>}/>
+      <Route path='/Home' element={
+        <Fragment>
+          <PageHome/>
+        </Fragment>}/>
+    </Routes>
+    
   )
 }
 

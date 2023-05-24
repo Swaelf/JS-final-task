@@ -10,14 +10,11 @@ import './style.css';
 
 export const PageHome = () => {
   return (
-  	<Routes>
-        <Route path='/Home/*' element={
-          <div className='homePage'>
-            <TopBar />
-            <SearchBar />
-            <TableHolder />
-         </div>}/>
-     </Routes>
+    <div className='homePage'>
+      <TopBar />
+      <SearchBar />
+      <TableHolder />
+   </div>
   )
 }
 

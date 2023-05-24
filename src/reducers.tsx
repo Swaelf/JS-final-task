@@ -34,7 +34,21 @@ const searchReducer = (state: string = initialSearch, action: any ) => {
   }
 };
 
+const initialLogin: string = '';
+
+const authReducer = (state: string = initialLogin, action: any ) => {
+  switch (action.type) {
+    case 'AUTH_LOGIN':
+      return action.payload;
+    case 'AUTH_LOGOUT':
+      return '';
+    default:
+      return state;
+  }
+};
+
 export const rootReducer = combineReducers({
   items: itemsReducer,
   search: searchReducer,
+  auth: authReducer,
 });
