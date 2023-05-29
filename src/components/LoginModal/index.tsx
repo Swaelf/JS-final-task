@@ -21,19 +21,20 @@ export const LoginModal = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const auth: any = useSelector((state: any) => state.auth);
-
+  console.log(auth);
   const handleClick = useCallback(() => {
 
-    console.log('login ', loginRef.current.value);
-    console.log('password ', passwordRef.current.value);
+    console.log('login ', loginRef.current!.value);
+    console.log('password ', passwordRef.current!.value);
 
     const auth0 = getAuth();
 
-    signInWithEmailAndPassword(auth0, loginRef.current.value, passwordRef.current.value)
+    signInWithEmailAndPassword(auth0, loginRef.current!.value, passwordRef.current!.value)
       .then((userCredential) => {
         // Handle successful login
         const user = userCredential.user;
         dispatch(authLogin(user.uid));
+        localStorage.setItem('uid', user.uid)
         console.log('User logged in:', user);
       })
       .catch((error) => {
@@ -68,7 +69,7 @@ export const LoginModal = () => {
           className='button button__login--apply' 
           onClick={ handleClick }
           text='Login' 
-          to={ auth==='' ? '/Initial' : '/Home' }/>
+          to='/'/>
         Don’t have an account?
         <NavLink to={ location.pathname.replace('/Login', '/SignUp') }>Sign up</NavLink>
       </div>

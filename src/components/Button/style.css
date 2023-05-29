@@ -29,8 +29,8 @@
     background-position: center;
     background-color: #3C86F433;
     border-radius: 10px;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
 
 .button__sort {
@@ -43,4 +43,40 @@
 
 .button__sort--disabled {
     display: none;
+}
+
+.button__filter--cancel {
+    background-color: #FFFFFF;
+    padding: 10px 18px 10px 18px;
+    width: 100%;
+}
+
+.button__filter--apply {
+    background-color: #3C86F433;
+    padding: 10px 18px 10px 18px;
+    width: 100%;
+}
+
+.protein__links {
+    width: 120px;
+    height: 40px;
+    color: #9F9F9F;
+}
+
+.protein__links--active {
+    border-bottom: 2px solid #3C86F4;
+    color: #3C86F4;
+}
+
+.protein__links--home {
+    border-bottom: 2px solid #3C86F4;
+    color: #3C86F4;
+}
+
+.copy {
+    background-image: url(./assets/copy.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 20px;
+    width: 20px;
 }

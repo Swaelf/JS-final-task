@@ -20,13 +20,13 @@ export const LoginSignUp = () => {
 
   const handleClick = useCallback(() => {
 
-    console.log('login ', loginRef.current.value);
-    console.log('password ', passwordRef.current.value);
-    console.log('passwordConfurm ', passwordConfurmRef.current.value);
+    console.log('login ', loginRef.current!.value);
+    console.log('password ', passwordRef.current!.value);
+    console.log('passwordConfurm ', passwordConfurmRef.current!.value);
 
     const auth0 = getAuth();
 
-    createUserWithEmailAndPassword(auth0, loginRef.current.value, passwordRef.current.value).catch(function(error) {
+    createUserWithEmailAndPassword(auth0, loginRef.current!.value, passwordRef.current!.value).catch(function(error) {
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;

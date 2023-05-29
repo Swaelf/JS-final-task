@@ -10,10 +10,13 @@ import './style.css';
 export const TopBar = () => {
 
 	const location = useLocation();
+	const dispatch = useDispatch();
+	
 	const auth: any = useSelector((state: any) => state.auth);
 
 	const handleClick = useCallback(() => {
 		console.log(auth)
+		localStorage.setItem('uid', '')
 	    dispatch(authLogin(''));
 
     }, [ auth ]); 
@@ -21,15 +24,14 @@ export const TopBar = () => {
 	
 	
 	return (
-	<Routes>
-        <Route path='/*' element={
-			<div className='topbar'> 
-				<NavLink 
-					to='/'
-					onClick={ handleClick }
-					className='topbar__link'
-					>Logout</NavLink>
-				your_email@email.com
-			</div>}/>
-     </Routes>)
+		<div className='topbar'> 
+			<NavLink 
+				to='/'
+				onClick={ handleClick }
+				className='topbar__link'>
+				Logout
+			</NavLink>
+			your_email@email.com
+		</div>
+	)
 }

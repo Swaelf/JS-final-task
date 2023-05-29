@@ -9,4 +9,5 @@
 	height: 40px;
 	gap: 2px;
 	box-sizing: border-box;
+	overflow-y: scroll;
 }

@@ -1,18 +1,24 @@
 import './App.css';
 
-import { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Route, createRoutesFromElements, createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
-import { PageLogin } from './components/PageLogin';
 import { PageHome } from './components/PageHome';
+import { PageLogin } from './components/PageLogin';
+import { ProteinPage } from './components/ProteinPage';
+import { ProteinDetails } from './components/ProteinDetails';
+import { ProteinFeatureView } from './components/ProteinFeatureView';
+import { ProteinPublications } from './components/ProteinPublications';
+import { Error404 } from './components/Error404';
 import { LoginInitial } from './components/LoginInitial';
 import { LoginModal } from './components/LoginModal';
 import { LoginSignUp } from './components/LoginSignUp';
+import { SearchBar } from './components/SearchBar';
+import { Table } from './components/Table';
+import { FilterModal } from './components/FilterModal';
+
 
 import { initializeApp } from "firebase/app";
-
-
 
 const firebaseConfig = {
   apiKey: "AIzaSyDn1RijVaoxSqZ3gCn6iKVmhWG8TbnxZWg",
@@ -23,51 +29,38 @@ const firebaseConfig = {
   appId: "1:950374001771:web:00465749f68d417b58952e"
 };
 
-const auth0 = initializeApp(firebaseConfig);
-
-
+const fireBase = initializeApp(firebaseConfig);
 
 const App = () => {
 
+  const dispatch = useDispatch();
+  //const navigate = useNavigate();
+
   const auth: any = useSelector((state: any) => state.auth);
+  const items: any = useSelector((state: any) => state.items);
+  const protein: any = useSelector((state: any) => state.protein);
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element={auth ? <PageHome /> : <PageLogin />}>
+        <Route path='/Login' element={<LoginModal/>}/>
+        <Route path='/SignUp' element={<LoginSignUp/>}/>
+        <Route path='/' element={<LoginInitial/>}/> 
+        <Route path='/Home' element={<div> <SearchBar/> <Table/> <Outlet/> </div>}>
+          <Route path='/Home/filter' element={<FilterModal/>}/>
+        </Route>
+        <Route path='/protein/:id' element={<ProteinPage/>}> 
+          <Route path='/protein/:id/details' element={<ProteinDetails />}/>
+          <Route path='/protein/:id/feature_viewer' element={<ProteinFeatureView />}/>
+          <Route path='/protein/:id/publications' element={<ProteinPublications />}/>
+        </Route>
+        <Route path='/not-found' element={<Error404/>}/>
+      </Route>
+    )
+  );
 
-  useEffect(() => {
-    
-    console.log('auth', auth)
+  return  ( <RouterProvider router={ router } />);
 
-    auth==='' ? navigate('/') : navigate('/Home');
-    // eslint-disable-next-line
-  }, [ auth ]); //we call it only once
-
-  
-      
-      
-  
-  return (
-    <Routes>
-      <Route path='/Login' element={
-        <div className='initialPage'>
-          <LoginModal/>
-        </div>}/>
-      <Route path='/SignUp' element={
-        <div className='initialPage'>
-          <LoginSignUp/>
-        </div>}/>
-      <Route path='/' element={
-        <div className='initialPage'>
-          <LoginInitial/>
-        </div>}/>
-      <Route path='/Home' element={
-        <Fragment>
-          <PageHome/>
-        </Fragment>}/>
-    </Routes>
-    
-  )
 }
-
+  
 export default App

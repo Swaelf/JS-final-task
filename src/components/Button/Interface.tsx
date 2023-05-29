@@ -1,10 +1,10 @@
 import React from 'react';
 
 export default interface Interface {
-  buttonRef?: React.RefObject<HTMLButtonElement>|null,
+  buttonRef?: React.RefObject<HTMLAnchorElement>|null,
   to?: string,
   text?: string,
   className: string,
-  onClick?: React.MouseEventHandler<HTMLButtonElement>|any,
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>|any,
   disabled?: boolean
 }

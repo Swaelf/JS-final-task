@@ -18,6 +18,7 @@ export const Input = (props: Interface) => {
 
 Input.defaultProps = {
     onChange: (() => {}),
+    className: '',
     text: '',
     placeholder: 'placeholder',
     inputRef: null

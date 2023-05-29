@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default interface Interface {
+export interface Interface {
   index?: number,
   entry?: string,
   entryNames?: string,

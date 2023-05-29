@@ -9,6 +9,7 @@ export const Button = (props: Interface) => {
 		return (
 			<span 
 				className={ props.className }
+				ref={ props.buttonRef }
 			>{ props.text }</span>
 		)
 	} else {
@@ -16,6 +17,7 @@ export const Button = (props: Interface) => {
 			<NavLink 
 				to={ props.to ? props.to : '/' }
 				className={ props.className }
+				ref={ props.buttonRef }
 				onClick={ props.onClick }
 			>{ props.text }</NavLink>
 		)

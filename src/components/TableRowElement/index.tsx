@@ -15,14 +15,12 @@ export const TableRowElement = (props: Interface) => {
   const location = useLocation();
 
   return (
-  	<Routes>
-        <Route path='/*' element={
-          <div className={ props.className }>
-            <Label 
-              className='table__itemLabel'
-              text={ props.text }/>  
-          </div>}/>
-     </Routes>
+    <div className={ props.className }>
+      <Label 
+        className='table__itemLabel'
+        onClick={ props.onClick }
+        text={ props.text }/>  
+    </div>
   )
 }
 

@@ -1,25 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { LoginInitial } from '../LoginInitial';
-import { LoginModal } from '../LoginModal';
-import { LoginSignUp } from '../LoginSignUp';
-
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 import './style.css';
+import { useEffect } from 'react';
 
 export const PageLogin = () => {
 
+  const dispatch = useDispatch();
+  const location = useLocation();
+	const navigate = useNavigate();
+
   const auth: any = useSelector((state: any) => state.auth);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log('auth1 = ',auth);
+    !auth ? navigate('/') :  navigate('/Home');
+  }, [ auth ]);
 
   return (
-    <div className='initialPage'>
-      <LoginInitial/>
-      <LoginModal/>
-      <LoginSignUp/>
-   </div>
+    <div className='initialPage'> 
+      <Outlet/> 
+    </div>
   )
 }
+
 
