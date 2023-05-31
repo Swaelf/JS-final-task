@@ -1,80 +1,75 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-
-import { TableRow } from '../TableRow';
-import { Label } from '../Label';
-
+import { TableRow, Loader } from 'src/components';
+import { addProtein, updateLink } from 'src/actions';
+import getProteinList from 'src/functions/getProteinList';
 import './style.css';
-import getDataFromServer from '../../functions/getDataFromServer';
-import { addItem } from '../../actions/addItem';
-import { updateSearch } from '../../actions/updateSearch';
-import { updateLink } from '../../actions/updateLink';
 
-export const TableRows = () => {
+const TableRows = () => {
 
-  const items: any = useSelector((state: any) => state.items);
+  const proteinList: any = useSelector((state: any) => state.proteinList);
   const link: any = useSelector((state: any) => state.link);
-
-  console.log(items);
-
-  const location = useLocation();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const listRef = useRef(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
+  const [load, setLoad] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
+ 
   useEffect(() => {
-    const container = listRef.current ? listRef.current : { 
-      scrollTop: 10, 
-      scrollHeight: 10, 
-      clientHeight: 10, 
-      addEventListener: ((scroll: string, handleScroll: any) => {}),
-      removeEventListener: ((scroll: string, handleScroll: any) => {})
-    };
+
+    const container = listRef.current 
 
     const handleScroll = () => {
-      const { scrollTop, scrollHeight, clientHeight } = container;
-      if ((Math.floor(scrollHeight - scrollTop) + 1) === clientHeight) {
-        if (link) {
-          getDataFromServer(link)
-            .then((items) => {
-              items.results.results.map((item: any) => dispatch(addItem(item)));
-              dispatch(updateLink(items.newlink));
-            });
-          }
+      if (container) {
+        console.log(container.scrollTop, '---', container.clientHeight);
+        if ((Math.floor(container.scrollHeight - container.scrollTop) + 1) === container.clientHeight) {
+          if (link) {
+            setLoad(true);
+            setScrollPosition(container.scrollTop);
+            getProteinList(link)
+              .then((proteinList) => { 
+                proteinList.results.map((protein: any) => dispatch(addProtein(protein)));
+                proteinList.newlink ? dispatch(updateLink(proteinList.newlink)) : '';
+              })
+              .catch(error => window.alert('error while fetch: ' + error.message))
+              .finally(() => { setLoad(false); })
+            }
+        }
       }
     };
 
-    container.addEventListener('scroll', handleScroll);
+    if (container) {
+      container?.addEventListener('scroll', handleScroll);
+      container.scrollTop = scrollPosition;
+    }
 
     return () => {
-      container.removeEventListener('scroll', handleScroll);
+      container?.removeEventListener('scroll', handleScroll);
     };
-  }, [ link ]);
+  }, [ link, load ]);
 
-  return (
-          <div className='tableRows' ref={ listRef }>
-            { items.map((protein: any, i: number) => {
-              return <TableRow 
-                key={ protein.primaryAccession ? protein.primaryAccession : i } 
-                index={ i }
-                entry={ protein.primaryAccession ? protein.primaryAccession : '' }
-                entryNames={ protein.uniProtkbId ? protein.uniProtkbId : '' }
-                genes={ 
-                  protein.genes ? (
-                    (protein.genes[0].geneName ? protein.genes[0].geneName.value ? protein.genes[0].geneName.value : '' : '') + 
-                    (protein.genes[0].synonyms ? (',' + protein.genes[0].synonyms.map((gene: any) => (' ' + gene.value))) : '') 
-                    ) : '' 
-                  }
-                organism={ protein.organism ? protein.organism.scientificName : '' }
-                sublocation={ 
-                  protein.comments ? protein.comments[0] ? protein.comments[0].subcellularLocations.map((sub: any) => sub.location.value) : '' : ''
-                }
-                length={ protein.sequence ? protein.sequence.length : 10 }
-                />
-              })}   
-         </div>
+  if ( load ) {
+    return <Loader/>
+  } 
+
+return (
+    <div className='tableRows' ref={ listRef }>
+      { proteinList.map((protein: any, i: number) => {
+        return <TableRow 
+          key={ protein.primaryAccession ? protein.primaryAccession : i } 
+          index={ i }
+          entry={ protein.entry }
+          entryNames={ protein.entryNames }
+          genes={ protein.genes + ((protein.genesSecondary != '') ? (', ' + protein.genesSecondary) : '') }
+          organism={ protein.organism.substring(0, protein.organism.indexOf('(') > 0 ? protein.organism.indexOf('(') : protein.organism.length) }
+          sublocation={ protein.sublocation }
+          length={ protein.length }
+          />
+        })}   
+    </div>
   )
-}
+};
+
+export default TableRows;
 
 

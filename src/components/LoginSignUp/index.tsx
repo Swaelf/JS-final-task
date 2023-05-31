@@ -1,17 +1,11 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-//import { useDispatch } from 'react-redux';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-
+import { useCallback, useRef } from 'react';
+import {useLocation } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-import { Button } from '../Button';
-import { Input } from '../Input';
-import { Label } from '../Label';
-
+import { Button, Input, Label } from 'src/components';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-
 import './style.css';
 
-export const LoginSignUp = () => {
+const LoginSignUp = () => {
 
   const location = useLocation();
   const loginRef = useRef<HTMLInputElement>(null);
@@ -25,19 +19,20 @@ export const LoginSignUp = () => {
     console.log('passwordConfurm ', passwordConfurmRef.current!.value);
 
     const auth0 = getAuth();
+    if (passwordRef.current?.value === passwordConfurmRef.current?.value && passwordRef.current?.value) {
 
-    createUserWithEmailAndPassword(auth0, loginRef.current!.value, passwordRef.current!.value).catch(function(error) {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        if (errorCode == 'auth/weak-password') {
-          alert('The password is too weak.');
-        } else {
-          alert(errorMessage);
-        }
-        console.log(error);
-      });
-    
+      createUserWithEmailAndPassword(auth0, loginRef.current!.value, passwordRef.current!.value).catch(function(error) {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          if (errorCode == 'auth/weak-password') {
+            alert('The password is too weak.');
+          } else {
+            window.alert(errorMessage);
+          }
+          console.log(error);
+        });
+    } else { window.alert('passwords are not same!')}
 
   }, [location]); 
 
@@ -52,20 +47,22 @@ export const LoginSignUp = () => {
 
       <Input 
         className='login_input' 
-        placeholder='Login' 
+        placeholder='email' 
         inputRef={ loginRef }
         text='Email/login'/>
 
       <Input 
         className='login_input' 
-        placeholder='Password' 
+        placeholder='password' 
         inputRef={ passwordRef }
+        type='password'
         text='Pasword'/>
 
       <Input 
         className='login_input' 
-        placeholder='Password' 
+        placeholder='confurm password' 
         inputRef={ passwordConfurmRef }
+        type='password'
         text='Repeat Pasword'/>
 
       <div className='button_container'>
@@ -79,4 +76,6 @@ export const LoginSignUp = () => {
       </div>
    </div>
   )
-}
+};
+
+export default LoginSignUp;

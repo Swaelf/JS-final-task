@@ -1,9 +1,8 @@
 import Interface from './Interface';
 import { NavLink } from 'react-router-dom';
-
 import './style.css';
 
-export const Button = (props: Interface) => {
+const Button = (props: Interface) => {
 	
 	if (props.disabled) {
 		return (
@@ -32,3 +31,5 @@ Button.defaultProps = {
   	onClick: (() => {}),
   	disabled: false
 };
+
+export default Button;

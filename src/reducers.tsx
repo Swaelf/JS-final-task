@@ -1,33 +1,18 @@
 import { combineReducers } from 'redux';
+import { proteinInterface } from 'src/interfaces';
 
-const initialState: any = [{
-  primaryAccession: '',
-  uniProtkbId: '',
-  genes: [{geneName: {value: 'AFF'}, synonyms: [{value: 'TTR'}, {value: 'TFR'}]}],
-  organism: {scientificName: 'temp'},
-  sequence: {accession: '', length: 14},
-  comments: [
-    {subcellularLocations: [
-      {location: {value: 'location'}}, 
-      {location: {value: 'location2'}} 
-      ]}
-    ]
-}];
-
-const itemsReducer = (state: any = initialState, action: any ) => {
+const proteinListReducer = (state: (proteinInterface | null)[] = [], action: any ) => {
   switch (action.type) {
-    case 'UPDATE_ITEMS':
+    case 'SET_PROTEIN_LIST':
       return action.payload;
-    case 'ADD_ITEM':
+    case 'ADD_PROTEIN':
       return [...state, action.payload];
     default:
       return state;
   }
 };
 
-const initialSearch: string = '';
-
-const searchReducer = (state: string = initialSearch, action: any ) => {
+const searchReducer = (state: string = '', action: any ) => {
   switch (action.type) {
     case 'UPDATE_SEARCH':
       return action.payload;
@@ -36,33 +21,29 @@ const searchReducer = (state: string = initialSearch, action: any ) => {
   }
 };
 
-const initialLogin: string = '';
+const authInitial: object = { login: '', uid: '' };
 
-const authReducer = (state: string = initialLogin, action: any ) => {
+const authReducer = (state: object = authInitial, action: any ) => {
   switch (action.type) {
     case 'AUTH_LOGIN':
       return action.payload;
-    case 'AUTH_LOGOUT':
-      return '';
     default:
       return state;
   }
 };
 
-const initialEntry: string = '';
-
-const entryReducer = (state: string = initialEntry, action: any ) => {
+const currentPathReducer = (state: string = '/', action: any ) => {
   switch (action.type) {
-    case 'UPDATE_ENTRY':
+    case 'SET_CURRENT_PATH':
       return action.payload;
     default:
       return state;
   }
 };
 
-const initialLink: string = '';
+const linkInitial: string = '';
 
-const linkReducer = (state: string = initialLink, action: any ) => {
+const linkReducer = (state: string = linkInitial, action: any ) => {
   switch (action.type) {
     case 'UPDATE_LINK':
       return action.payload;
@@ -71,13 +52,24 @@ const linkReducer = (state: string = initialLink, action: any ) => {
   }
 };
 
-const initialProtein: any = { 
+const proteinInitial: any = { 
   sequence: { value: '' }
 };
 
-const proteinReducer = (state: string = initialProtein, action: any ) => {
+const proteinReducer = (state: object = proteinInitial, action: any ) => {
   switch (action.type) {
-    case 'SET_PROTEIN':
+    case 'SET_CURRENT_PROTEIN':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+const loadStateInitial: boolean = false;
+
+const loadStateReducer = (state: boolean = loadStateInitial, action: any ) => {
+  switch (action.type) {
+    case 'SET_LOAD_STATE':
       return action.payload;
     default:
       return state;
@@ -85,10 +77,11 @@ const proteinReducer = (state: string = initialProtein, action: any ) => {
 };
 
 export const rootReducer = combineReducers({
-  items: itemsReducer,
+  proteinList: proteinListReducer,
   search: searchReducer,
   auth: authReducer,
-  entry: entryReducer,
   protein: proteinReducer,
   link: linkReducer,
+  currentPath: currentPathReducer,
+  loading: loadStateReducer,
 });

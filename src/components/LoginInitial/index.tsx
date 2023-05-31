@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-//import { useDispatch } from 'react-redux';
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { Button } from '../Button'
-
+import { Button } from 'src/components'
 import './style.css';
 
-export const LoginInitial = () => {
+const LoginInitial = () => {
 
   const location = useLocation();
 
@@ -17,3 +15,5 @@ export const LoginInitial = () => {
    </div>
   )
 }
+
+export default LoginInitial;

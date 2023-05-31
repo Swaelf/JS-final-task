@@ -24,7 +24,7 @@
 }
 
 .button__filter {
-    background-image: url(assets/options.svg);
+    background-image: url(src/assets/button-options.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-color: #3C86F433;
@@ -34,7 +34,7 @@
 }
 
 .button__sort {
-    background-image: url(assets/sort_icon.svg);
+    background-image: url(src/assets/button-sort.svg);
     background-repeat: no-repeat;
     background-position: center;
     width: 40px;
@@ -74,7 +74,7 @@
 }
 
 .copy {
-    background-image: url(./assets/copy.svg);
+    background-image: url(src/assets/button-copy.svg);
     background-repeat: no-repeat;
     background-position: center;
     height: 20px;

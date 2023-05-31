@@ -1,18 +1,9 @@
-import React, { useState, useEffect } from 'react';
-//import { useDispatch } from 'react-redux';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 
-import { NavLink } from 'react-router-dom';
-import { Button } from '../Button';
-import { Input } from '../Input';
-import { Label } from '../Label';
-
+import { Label } from 'src/components';
 import Interface from './Interface';
 import './style.css';
 
-export const TableRowElement = (props: Interface) => {
-
-  const location = useLocation();
+const TableRowElement = (props: Interface) => {
 
   return (
     <div className={ props.className }>
@@ -32,3 +23,5 @@ TableRowElement.defaultProps = {
     onClick: (() => {}),
     disabled: false
 };
+
+export default TableRowElement;

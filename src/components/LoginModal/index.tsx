@@ -1,47 +1,37 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-
-import { NavLink } from 'react-router-dom';
-import { Button } from '../Button';
-import { Input } from '../Input';
-import { Label } from '../Label';
-
-import { authLogin } from '../../actions/authLogin';
-
+import { useCallback, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { useLocation, NavLink } from 'react-router-dom';
+import { Button, Input, Label } from 'src/components';
+import { authLogin, setProteinList, setLoadState, setCurrentPath } from 'src/actions';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-
 import './style.css';
 
-export const LoginModal = () => {
+const LoginModal = () => {
 
   const location = useLocation();
   const dispatch = useDispatch();
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const auth: any = useSelector((state: any) => state.auth);
-  console.log(auth);
   const handleClick = useCallback(() => {
 
     console.log('login ', loginRef.current!.value);
     console.log('password ', passwordRef.current!.value);
 
-    const auth0 = getAuth();
+    const authRef = getAuth();
+    dispatch(setLoadState(true));
 
-    signInWithEmailAndPassword(auth0, loginRef.current!.value, passwordRef.current!.value)
+    signInWithEmailAndPassword(authRef, loginRef.current!.value, passwordRef.current!.value)
       .then((userCredential) => {
-        // Handle successful login
         const user = userCredential.user;
-        dispatch(authLogin(user.uid));
-        localStorage.setItem('uid', user.uid)
+        dispatch(authLogin({ login: user.email, uid: user.uid }));
+        dispatch(setProteinList([]));
+        dispatch(setCurrentPath('/Home'));
+        dispatch(setLoadState(false));
         console.log('User logged in:', user);
       })
       .catch((error) => {
-        // Handle login error
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error('Login error:', errorCode, errorMessage);
+        console.error('Login error:', error.code, error.message);
       });
 
     }, [location]); 
@@ -54,14 +44,15 @@ export const LoginModal = () => {
 
       <Input 
         className='login_input' 
-        placeholder='Login' 
+        placeholder='email' 
         inputRef={ loginRef }
         text='Email/login'/>
 
       <Input 
         className='login_input' 
-        placeholder='Password' 
+        placeholder='password' 
         inputRef={ passwordRef }
+        type='password'
         text='Pasword'/>
         
       <div className='button_container'>
@@ -69,10 +60,12 @@ export const LoginModal = () => {
           className='button button__login--apply' 
           onClick={ handleClick }
           text='Login' 
-          to='/'/>
+          to='/Home'/>
         Don’t have an account?
         <NavLink to={ location.pathname.replace('/Login', '/SignUp') }>Sign up</NavLink>
       </div>
    </div>
   )
 }
+
+export default LoginModal;

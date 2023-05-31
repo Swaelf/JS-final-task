@@ -1,12 +1,21 @@
-import { Button } from '../Button';
-
-import './style.css';
 import { useSelector } from 'react-redux';
+import { Button } from 'src/components';
+import './style.css';
+import { useCallback, useRef } from 'react';
 
-export const ProteinDetails = () => {
+const ProteinDetails = () => {
 
-    const protein = useSelector((state: any) => state.protein.results);
-    const date = new Date(Date.parse(protein.entryAudit.lastAnnotationUpdateDate))
+    const protein = useSelector((state: any) => state.protein);
+    const date = new Date(Date.parse(protein.entryAudit.lastAnnotationUpdateDate));
+
+    const textRef = useRef<HTMLTextAreaElement>(null);
+
+    const handleClick = useCallback(() => {
+        
+        textRef?.current?.select();
+        document.execCommand('copy');
+
+    }, [])
 
     return (
         <div className='details'>
@@ -25,10 +34,19 @@ export const ProteinDetails = () => {
                 </div>
             </div>
             <div className='button_copy_container'>
-                <Button className='copy'/>
+                <Button 
+                    className='copy' 
+                    onClick={ handleClick } 
+                    to={ location.pathname }/>
                 Copy
             </div>
-            <label className='details__text'>{ protein.sequence.value }</label>
+            <textarea 
+                ref={ textRef }
+                className='details__text' 
+                defaultValue={ protein.sequence.value }
+                readOnly={ true }/>
         </div>
     )
 }
+
+export default ProteinDetails;

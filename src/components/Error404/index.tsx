@@ -1,19 +1,14 @@
-import React, { useState, useEffect } from 'react';
-//import { useDispatch } from 'react-redux';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { Button } from '../Button'
-
+import { Button, Label } from 'src/components'
 import './style.css';
 
-export const Error404 = () => {
-
-  const location = useLocation();
-
+const Error404 = () => {
   return (
     <div className='errorPage'>
-        <h1>404</h1>
-        <ul>page not found</ul>
+        <Label className='error__text error__text--header' text='404'/>
+        <Label className='error__text error__text--core' text='page not found'/>
         <Button className='button button__search' text='Back to Search' to='/Home'/>
    </div>
   )
 }
+
+export default Error404;

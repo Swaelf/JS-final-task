@@ -1,0 +1,35 @@
+
+.loader {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    top: 50%;
+    left: 50%;
+    height:200px;
+    width: 200px;
+    transform: translate(50%, 50%);
+    background-color: lightpink;
+    border-radius: 50%;
+    animation: rotate 15s linear infinite;
+}
+
+@keyframes rotate {
+    0%{
+        transform: rotateY(0deg);
+      }
+      25%{
+        transform: rotateY(90deg);
+      }
+      50%{
+        transform: rotateY(180deg);
+      }
+      75%{
+        transform: rotateY(270deg);
+      }
+      100%{
+        transform: rotateY(360deg);
+      }
+}

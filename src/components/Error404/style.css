@@ -5,4 +5,19 @@
 	width: 100%;
 	justify-content: center;
 	align-items: center;
+	gap: 12px;
+}
+
+.error__text {
+	font-weight: 600;
+}
+
+.error__text--header {
+	color: black;
+	font-size: 72px;
+}
+
+.error__text--core {
+	font-size: 16px;
+	color: #9F9F9F;
 }

@@ -1,8 +1,7 @@
 import Interface from './Interface';
-
 import './style.css';
 
-export const Label = (props: Interface) => {
+const Label = (props: Interface) => {
 
 	return (
 	<label 
@@ -19,3 +18,5 @@ Label.defaultProps = {
   	className: '',
   	onClick: (() => {})
 };
+
+export default Label;

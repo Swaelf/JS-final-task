@@ -1,28 +1,19 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
-
-import { authLogin } from '../../actions/authLogin';
-
+import { authLogin } from 'src/actions';
+import { loginInterface } from 'src/interfaces'
 import './style.css';
 
-export const TopBar = () => {
+const TopBar = () => {
 
-	const location = useLocation();
 	const dispatch = useDispatch();
-	
-	const auth: any = useSelector((state: any) => state.auth);
+	const auth: loginInterface = useSelector((state: any) => state.auth);
 
 	const handleClick = useCallback(() => {
-		console.log(auth)
-		localStorage.setItem('uid', '')
-	    dispatch(authLogin(''));
-
+	    dispatch(authLogin({ login: '', iud: '' }));
     }, [ auth ]); 
 
-	
-	
 	return (
 		<div className='topbar'> 
 			<NavLink 
@@ -31,7 +22,9 @@ export const TopBar = () => {
 				className='topbar__link'>
 				Logout
 			</NavLink>
-			your_email@email.com
+			{ auth.login }
 		</div>
 	)
-}
+};
+
+export default TopBar;

@@ -1,29 +1,45 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { TopBar } from '../TopBar';
-
-import './style.css';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { TopBar } from 'src/components';
+import './style.css';
 
-export const PageHome = () => {
+const PageHome = () => {
 
-  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const auth: any = useSelector((state: any) => state.auth);
+  const auth: string = useSelector((state: any) => state.auth.uid);
 
   useEffect(() => {
-    console.log('auth1 = ',auth);
-    !auth ? navigate('/') :  navigate('/Home');
+    
+    if (!auth) { 
+      navigate('/');
+    } else if ( location.pathname === '/' ) {
+      navigate('/Home');
+    }
+
   }, [ auth ]);
 
+
+  if ( auth ) {
+
+    return (
+      <div className='homePage'> 
+        <TopBar/>
+        <Outlet/>
+     </div>
+     )
+
+  } else {
+
+    return (
+      <div className='initialPage'> 
+        <Outlet/>
+      </div>
+     )
+  }
   
-  return (
-    <div className='homePage'> 
-      <TopBar/>
-      <Outlet/>
-   </div>
-  )
 }
 
+export default PageHome;

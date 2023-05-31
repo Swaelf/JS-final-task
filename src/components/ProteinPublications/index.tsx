@@ -1,19 +1,9 @@
-import React, { useState, useEffect } from 'react';
-//import { useDispatch } from 'react-redux';
-import getDataFromServer from '../../functions/getDataFromServer';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { Button } from '../Button';
-
-import './style.css';
-import Interface from './Interface';
 import { useSelector } from 'react-redux';
+import './style.css';
 
-export const ProteinPublications = () => {
+const ProteinPublications = () => {
 
-    const location = useLocation();
-    const protein = useSelector((state: any) => state.protein.results);
-
-    
+    const protein = useSelector((state: any) => state.protein);
 
     return (
         <div className='publications'>
@@ -23,7 +13,7 @@ export const ProteinPublications = () => {
                         <div key={ publications.citation.id } className='publication__item'>
                             <span 
                                 className='publication__title'>
-                                    { publications.citation.title }
+                                    { publications.citation.title ? publications.citation.title : '' }
                             </span>
 
                             <span>
@@ -52,6 +42,6 @@ export const ProteinPublications = () => {
             }
         </div>
     )
-}
+};
 
-//{ publications.citation.citationCrossReferences }
+export default ProteinPublications;

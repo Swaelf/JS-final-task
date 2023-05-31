@@ -1,8 +1,7 @@
 import Interface from './Interface';
-
 import './style.css';
 
-export const Search = (props: Interface) => {
+const Search = (props: Interface) => {
 
 	return (
 	<input 
@@ -22,3 +21,5 @@ Search.defaultProps = {
   	placeholder: 'placeholder',
   	value: ''
 };
+
+export default Search;

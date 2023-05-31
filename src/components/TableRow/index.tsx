@@ -1,84 +1,64 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-
-import { NavLink } from 'react-router-dom';
-import { TableRowElement } from '../TableRowElement';
-import { Input } from '../Input';
-import { Label } from '../Label';
-
-import { Button } from '../Button';
-import { ProteinDetails } from '../ProteinDetails';
-
-import getDataFromServer from '../../functions/getDataFromServer';
-import { updateEntry } from '../../actions/updateEntry';
-import { setProtein } from '../../actions/setProtein';
-
+import { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { TableRowElement } from 'src/components';
+import { setCurrentProtein, setLoadState, setCurrentPath } from 'src/actions';
+import getProteinInfo from 'src/functions/getProteinInfo';
 import { Interface } from './Interface'
 import './style.css';
 
+const TableRow = (props: Interface) => {
 
-export const TableRow = (props: Interface) => {
-
-  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const entry = useSelector((state: any) => state.entry);
-  const protein = useSelector((state: any) => state.protein);
-  //const entry = location.pathname.substring(location.pathname.lastIndexOf('/') + 1, location.pathname.length)
-
-  
-
-
   const handleClick = useCallback(() => {
-    
+    dispatch(setLoadState(true));
     const localpath: string = `https://rest.uniprot.org/uniprotkb/${props.entry}`;
+    const tempPath: string = `/protein/${ props.entry }`;
+    console.log('intest')
 
-    getDataFromServer(localpath)
-          .then((items) => {
-              console.log('get items', items)
-              dispatch(setProtein(items));
+    getProteinInfo(localpath)
+          .then((protein) => {
+              console.log('test', protein)
+              dispatch(setCurrentProtein(protein));
+          })
+          .catch((error) => { window.alert(error.message)})
+          .finally(() => { dispatch(setLoadState(false)); })
 
-          });
-
-	  dispatch(updateEntry(props.entry));
-    navigate(`/protein/${ props.entry }`);
-    console.log('go to ', props.entry)
+    navigate(tempPath);
+    dispatch(setCurrentPath(tempPath));
+    console.log('go to ', props.entry);
     }, [ props.entry ]); 
 
-
-
   return (
-  	<Routes>
-        <Route path='/*' element={
-          <div className='tableRow'>
-            <TableRowElement 
-              className='itemLabel itemLabel--1'
-              text={ props.index }/> 
-            <TableRowElement 
-              className='itemLabel itemLabel--2'
-              onClick={ handleClick }
-              text={ props.entry }/> 
-            <TableRowElement 
-              className='itemLabel itemLabel--3'
-              text={ props.entryNames }/> 
-            <TableRowElement 
-              className='itemLabel itemLabel--4'
-              text={ props.genes }/> 
-            <TableRowElement 
-             className='itemLabel itemLabel--5'
-              text={ props.organism }/> 
-            <TableRowElement 
-             className='itemLabel itemLabel--6'
-              text={ props.sublocation }/> 
-            <TableRowElement 
-              className='itemLabel itemLabel--7'
-              text={ props.length }/> 
-         </div>}/>
-     </Routes>
+
+    <div className='tableRow'>
+      <TableRowElement 
+        className='itemLabel itemLabel--1'
+        text={ props.index }/> 
+      <TableRowElement 
+        className='itemLabel itemLabel--2'
+        onClick={ handleClick }
+        text={ props.entry }/> 
+      <TableRowElement 
+        className='itemLabel itemLabel--3'
+        text={ props.entryNames }/> 
+      <TableRowElement 
+        className='itemLabel itemLabel--4'
+        text={ props.genes }/> 
+      <TableRowElement 
+        className='itemLabel itemLabel--5'
+        text={ props.organism }/> 
+      <TableRowElement 
+        className='itemLabel itemLabel--6'
+        text={ props.sublocation }/> 
+      <TableRowElement 
+        className='itemLabel itemLabel--7'
+        text={ props.length }/> 
+    </div>
   )
-}
+};
 
 TableRow.defaultProps = {
   index: 0,
@@ -89,3 +69,5 @@ TableRow.defaultProps = {
   sublocation: 'sublocation',
   length: 0
 };
+
+export default TableRow;

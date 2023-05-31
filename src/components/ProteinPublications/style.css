@@ -46,7 +46,7 @@
 }
 
 .reference__icon {
-	background-image: url(./assets/icon.svg);
+	background-image: url(src/assets/button-reference.svg);
 	background-repeat: no-repeat;
 	background-position: center;
 	height: 20px;

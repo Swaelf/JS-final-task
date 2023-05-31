@@ -1,28 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-
-import { NavLink } from 'react-router-dom';
-import { TableRows } from '../TableRows';
-import { Input } from '../Input';
-import { Label } from '../Label';
-import { ColumnHeaders } from '../ColumnHeaders';
-
+import { useSelector } from 'react-redux';
+import { TableRows, TableColumnHeaders } from 'src/components';
 import './style.css';
 
-export const Table = () => {
+const Table = () => {
 
-  const items: any = useSelector((state: any) => state.items);
-  const searchStr = useSelector((state: string) => state.search);
-
-  const location = useLocation();
+  const proteinList: any = useSelector((state: any) => state.proteinList);
+  const search = useSelector((state: string) => state.search);
 
   return (
   	
           <div className='table'>
-            { items.length + ' Search Results for ' + searchStr }
-            <ColumnHeaders />
+            { proteinList.length + ' Search Results for ' + search }
+            <TableColumnHeaders />
             <TableRows />    
          </div>
   )
-}
+};
+
+export default Table;

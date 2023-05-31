@@ -1,23 +1,19 @@
-import React, { useState, useEffect } from 'react';
-//import { useDispatch } from 'react-redux';
-import getDataFromServer from '../../functions/getDataFromServer';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
-import { Label } from '../Label';
 
-
-
+import { useLocation } from 'react-router-dom';
 import './style.css';
-import Interface from './Interface';
+//import ProtvistaUniprot from 'src/protvista-uniprot/src';
 
-export const ProteinFeatureView = () => {
-
-    
+const ProteinFeatureView = () => {
 
     const location = useLocation();
+    //const element = new ProtvistaUniprot();
+    //console.log(element)
 
     return (
-        <div className='featureView'>
-
+        <div  className='featureView'>
+             
         </div>
     )
 }
+
+export default ProteinFeatureView;
