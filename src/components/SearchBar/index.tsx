@@ -81,6 +81,7 @@ const SearchBar = () => {
 				text=''/>
 		</div>
 	);
+	
 };
 
 export default SearchBar;

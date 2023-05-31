@@ -1,7 +1,8 @@
 
 import { useLocation } from 'react-router-dom';
 import './style.css';
-//import ProtvistaUniprot from 'src/protvista-uniprot/src';
+import { ProtvistaUniprot } from 'protvista-uniprot';
+import { Label } from 'src/components';
 
 const ProteinFeatureView = () => {
 
@@ -11,7 +12,7 @@ const ProteinFeatureView = () => {
 
     return (
         <div  className='featureView'>
-             
+             <Label text=' temp '/>
         </div>
     )
 }
