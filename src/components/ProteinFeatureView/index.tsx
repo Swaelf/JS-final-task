@@ -1,17 +1,21 @@
 
-import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './style.css';
-//import ProtvistaUniprot from 'src/protvista-uniprot/src';
+import { useEffect } from 'react';
 
 const ProteinFeatureView = () => {
 
-    const location = useLocation();
-    //const element = new ProtvistaUniprot();
-    //console.log(element)
+    const protein = useSelector((state: any) => state.protein);
 
+    let element = 
+        <div className='view__container'>
+            <protvista-uniprot 
+                accession={ protein.primaryAccession }/>
+        </div>;
+         
     return (
         <div  className='featureView'>
-             
+             { element ? element : <div></div> } 
         </div>
     )
 }

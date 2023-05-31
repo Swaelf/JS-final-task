@@ -1,9 +1,20 @@
 .featureView {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
 	width: 100%;
 	justify-content: center;
 	align-items: center;
-	outline: 1px solid blue;
+}
+
+.view__container {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	align-items: flex-start;
+	overflow: auto;
+}
+
+protvista-uniprot {
+	width: 100%;
+	min-width: 100%;
 }
