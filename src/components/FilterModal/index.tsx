@@ -14,7 +14,7 @@ const FilterModal = () => {
   const anotationRef = useRef(null);
   const lengthRef = useRef(null);
 
-  const auth: any = useSelector((state: any) => state.auth);
+  const auth: string = useSelector((state: any) => state.auth);
   console.log(auth);
 
   const handleClick = useCallback(() => {

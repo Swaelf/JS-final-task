@@ -1,7 +1,9 @@
 
 import { useSelector } from 'react-redux';
 import './style.css';
-import { useEffect } from 'react';
+import ProtvistaUniprot from 'protvista-uniprot';
+
+window.customElements.define('protvista-uniprot', ProtvistaUniprot);
 
 const ProteinFeatureView = () => {
 

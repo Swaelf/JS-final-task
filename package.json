@@ -15,7 +15,7 @@
     "d3": "^5.16.0",
     "d3v4": "^4.2.2",
     "firebase": "^9.22.0",
-    "protvista-uniprot": "file:protvista-uniprot",
+    "protvista-uniprot": "^2.10.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.7",
