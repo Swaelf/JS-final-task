@@ -1,0 +1,44 @@
+.login_input {
+    width: 100%;
+    height: 52px;
+    min-height: 52px;
+    box-sizing: border-box;
+    background-color: #F5F5F5;
+    border: 1px solid #D2D2D2;
+    border-radius: 12px;
+    padding: 16px 21px 16px 21px;
+}
+
+.login_input::placeholder { 
+    color: #D2D2D2;
+}
+
+.login_input:focus {
+    outline: 1px solid red;
+}
+
+.input__text {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 600;
+}
+
+.filter_input {
+    width: 100%;
+    height: 52px;
+    min-height: 52px;
+    box-sizing: border-box;
+    background-color: #F5F5F5;
+    border: 1px solid #D2D2D2;
+    border-radius: 12px;
+    padding: 16px 21px 16px 21px;
+}
+
+.input_sequence {
+    width: 100%;
+}

@@ -1,0 +1,12 @@
+.tableRows {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	font-size: 16px;
+	font-weight: 600;
+	width: 100%;
+	height: calc(100vh - 227px);
+	box-sizing: border-box;
+	overflow-y: scroll;	
+}
+

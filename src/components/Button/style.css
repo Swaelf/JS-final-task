@@ -1,0 +1,82 @@
+.button {
+	display: flex;
+    border-radius: 25px;
+    justify-content: center;
+    align-items: center;
+}
+
+.button__login--initial {
+    background-color: white;
+    height: 50px;
+    width: 150px;
+}
+
+.button__login--apply {
+    background-color: #D8E7FF;
+    height: 50px;
+    width: 100%;
+}
+
+.button__search {
+    background-color: #3C86F433;
+    height: 50px;
+    width: 150px;
+}
+
+.button__filter {
+    background-image: url(src/assets/button-options.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #3C86F433;
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+.button__sort {
+    background-image: url(src/assets/button-sort.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+}
+
+.button__sort--disabled {
+    display: none;
+}
+
+.button__filter--cancel {
+    background-color: #FFFFFF;
+    padding: 10px 18px 10px 18px;
+    width: 100%;
+}
+
+.button__filter--apply {
+    background-color: #3C86F433;
+    padding: 10px 18px 10px 18px;
+    width: 100%;
+}
+
+.protein__links {
+    width: 120px;
+    height: 40px;
+    color: #9F9F9F;
+}
+
+.protein__links--active {
+    border-bottom: 2px solid #3C86F4;
+    color: #3C86F4;
+}
+
+.protein__links--home {
+    border-bottom: 2px solid #3C86F4;
+    color: #3C86F4;
+}
+
+.copy {
+    background-image: url(src/assets/button-copy.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 20px;
+    width: 20px;
+}

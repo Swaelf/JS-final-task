@@ -1,0 +1,12 @@
+.tableRow {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	text-align: left;
+	font-size: 16px;
+	font-weight: 600;
+	width: 100%;
+	height: auto;
+	gap: 2px;
+	box-sizing: border-box;
+}

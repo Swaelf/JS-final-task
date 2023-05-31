@@ -1,0 +1,18 @@
+.loginContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	width: 300px;
+	height: auto;
+	top: calc(max(30%, 200px));
+	left: 70%;
+	transform: translate(-50%, -50%);
+}
+
+h1, ul {
+	text-align: left;
+	padding: 0;
+	width: 300px;
+	word-wrap: break-word;
+}
