@@ -19,6 +19,12 @@ const FilterModal = () => {
 
   const handleClick = useCallback(() => {
 
+      console.log( geneRef.current?.value );
+      console.log( organismdRef.current?.value );
+      console.log( sequenceRef_1.current?.value );
+      console.log( sequenceRef_2.current?.value );
+      console.log( anotationRef.current?.value );
+      console.log( lengthRef.current?.value );
   }, [location]); 
 
 
