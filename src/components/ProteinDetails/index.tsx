@@ -1,12 +1,13 @@
 import { useSelector } from 'react-redux';
 import { Button } from 'src/components';
-import './style.css';
 import { useCallback, useRef } from 'react';
+import { proteinInterface, stateInterface } from 'src/interfaces';
+import './style.css';
 
 const ProteinDetails = () => {
 
-    const protein = useSelector((state: any) => state.protein);
-    const date = new Date(Date.parse(protein.entryAudit.lastAnnotationUpdateDate));
+    const protein: proteinInterface = useSelector((state: stateInterface) => state.protein);
+    const date = new Date(Date.parse(protein.entryAudit?.lastAnnotationUpdateDate as string));
 
     const textRef = useRef<HTMLTextAreaElement>(null);
 
@@ -22,15 +23,15 @@ const ProteinDetails = () => {
             <div className='details__container'>
                 <div className='details__items'>
                     <span>Length</span>
-                    <span>{ protein.sequence.length }</span>
+                    <span>{ protein.sequence?.length }</span>
                     <span>Mass (Da)</span>
-                    <span>{ protein.sequence.molWeight }</span>
+                    <span>{ protein.sequence?.molWeight }</span>
                 </div>
                 <div className='details__items'>
                     <span>Last updated</span>
                     <span>{ date.toDateString().substring(4) }</span>
                     <span>Checksum</span>
-                    <span>{ protein.sequence.crc64 }</span>
+                    <span>{ protein.sequence?.crc64 }</span>
                 </div>
             </div>
             <div className='button_copy_container'>
@@ -43,7 +44,7 @@ const ProteinDetails = () => {
             <textarea 
                 ref={ textRef }
                 className='details__text' 
-                defaultValue={ protein.sequence.value }
+                defaultValue={ protein.sequence?.value }
                 readOnly={ true }/>
         </div>
     )

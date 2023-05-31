@@ -1,10 +1,10 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Button, Search } from 'src/components';
 import { setProteinList, updateSearch, updateLink, setLoadState, setCurrentPath } from 'src/actions';
 import getProteinList from 'src/functions/getProteinList';
-
+import { proteinListInterface, proteinInterface, stateInterface } from 'src/interfaces';
 import './style.css';
 
 const SearchBar = () => {
@@ -13,7 +13,19 @@ const SearchBar = () => {
 	const location = useLocation();
 	const dispatch = useDispatch();
 
-	const currentPath: string = useSelector((state: any) => state.currentPath);
+	const currentPath: string = useSelector((state: stateInterface) => state.currentPath);
+	const searchStr: string = useSelector((state: stateInterface) => state.searchStr);
+
+	useEffect(() => {
+
+		if (location.search.replace('?query=', '') !== searchStr) { 
+			dispatch(updateSearch(location.search.replace('?query=', '')));
+			dispatch(setCurrentPath(location.search));
+		}
+	
+	}, [ location ]);
+
+	
 
   	const handleSearch = useCallback(() => {
 		let tempPath: string = '';
@@ -23,10 +35,12 @@ const SearchBar = () => {
 			query = encodeURIComponent(searchRef.current.value);
 
 			tempPath = '/search?query=' +  query;
-			dispatch(setCurrentPath(tempPath));	
+			dispatch(setCurrentPath(tempPath));
+			dispatch(updateSearch(query));
 		} else { 
 			tempPath ='/Home';
 			dispatch(setCurrentPath(tempPath));
+			dispatch(updateSearch(''));
 		}
 		
 		// eslint-disable-next-line
@@ -36,7 +50,6 @@ const SearchBar = () => {
   	const handleClick = useCallback(() => {
 
 		dispatch(setLoadState(true));
-		dispatch(setCurrentPath('/search'));	
 
 		let query: string = '';
 		
@@ -50,8 +63,8 @@ const SearchBar = () => {
   		const path: string = `https://rest.uniprot.org/uniprotkb/search?&query=${ query }&fields=accession,id,gene_names,organism_name,length,cc_subcellular_location`;
 
 		getProteinList(path)
-			.then((proteinList) => { 
-				dispatch(setProteinList(proteinList.results));
+			.then((proteinList: proteinListInterface) => { 
+				dispatch(setProteinList(proteinList.results as (proteinInterface)[]));
 				proteinList.newlink ? dispatch(updateLink(proteinList.newlink)) : '';
 			})
 			.catch(error => window.alert('error while fetch: ' + error.message))
@@ -67,7 +80,7 @@ const SearchBar = () => {
 				onChange={ handleSearch } 
 				placeholder='Search'
 				inputRef={ searchRef }
-				value={ decodeURIComponent(location.search).replace('search?query=', '') }/>
+				value={ searchStr }/>
 
 			<Button 
 				className='button button__search' 

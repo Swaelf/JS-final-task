@@ -10,5 +10,6 @@ export default defineConfig({
       'components' : path.resolve(__dirname, './src/components')
     },
   },
+  base: "/JS-final-task",
   plugins: [react()],
 })

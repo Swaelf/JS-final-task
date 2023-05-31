@@ -1,8 +1,8 @@
 
-import { proteinInterface } from "src/interfaces";
+import { proteinListInterface } from "src/interfaces";
 
 export default async function getProteinList(path: string = '') {
-  let proteinList: { results: (proteinInterface|null)[], newlink: string} = {results: [], newlink: ''}
+  let proteinList: proteinListInterface = { results: [], newlink: ''}
 
   if (path) {
       await fetch(path, { method: "GET" })
@@ -17,9 +17,9 @@ export default async function getProteinList(path: string = '') {
               return { 
                   entry: protein.primaryAccession ? protein.primaryAccession : '',
                   entryNames: protein.uniProtkbId ? protein.uniProtkbId : '',
-                  genes: protein.genes && protein.genes[0].geneName && protein.genes[0].geneName.value ? protein.genes[0].geneName.value : '',
+                  genesPrimary: protein.genes && protein.genes[0].geneName && protein.genes[0].geneName.value ? protein.genes[0].geneName.value : '',
                   genesSecondary: protein.genes && protein.genes[0].synonyms ? protein.genes[0].synonyms.map((gene: any) => (' ' + gene.value)) : [],
-                  organism: protein.organism ? protein.organism.scientificName : '',
+                  organismName: protein.organism ? protein.organism.scientificName : '',
                   sublocation: protein.comments && protein.comments[0] && protein.comments[0].subcellularLocations ? protein.comments[0].subcellularLocations.map((sub: any) => sub.location.value) : '',
                   length: protein.sequence ? protein.sequence.length : 0
                 }

@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface Interface {
   index?: number,
   entry?: string,

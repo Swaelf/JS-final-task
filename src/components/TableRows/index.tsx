@@ -4,11 +4,12 @@ import { TableRow, Loader } from 'src/components';
 import { addProtein, updateLink } from 'src/actions';
 import getProteinList from 'src/functions/getProteinList';
 import './style.css';
+import { proteinInterface, proteinListInterface, stateInterface } from 'src/interfaces';
 
 const TableRows = () => {
 
-  const proteinList: any = useSelector((state: any) => state.proteinList);
-  const link: any = useSelector((state: any) => state.link);
+  const proteinList: (proteinInterface)[] = useSelector((state: stateInterface) => state.proteinList as (proteinInterface)[]);
+  const link: string = useSelector((state: stateInterface) => state.link);
   const dispatch = useDispatch();
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -27,9 +28,9 @@ const TableRows = () => {
             setLoad(true);
             setScrollPosition(container.scrollTop);
             getProteinList(link)
-              .then((proteinList) => { 
-                proteinList.results.map((protein: any) => dispatch(addProtein(protein)));
-                proteinList.newlink ? dispatch(updateLink(proteinList.newlink)) : '';
+              .then((List: proteinListInterface) => { 
+                List.results?.map((protein: proteinInterface) => dispatch(addProtein(protein)));
+                List.newlink ? dispatch(updateLink(List.newlink)) : '';
               })
               .catch(error => window.alert('error while fetch: ' + error.message))
               .finally(() => { setLoad(false); })
@@ -54,14 +55,14 @@ const TableRows = () => {
 
 return (
     <div className='tableRows' ref={ listRef }>
-      { proteinList.map((protein: any, i: number) => {
+      { proteinList.map((protein: proteinInterface, i: number) => {
         return <TableRow 
           key={ protein.primaryAccession ? protein.primaryAccession : i } 
           index={ i }
           entry={ protein.entry }
           entryNames={ protein.entryNames }
-          genes={ protein.genes + ((protein.genesSecondary != '') ? (', ' + protein.genesSecondary) : '') }
-          organism={ protein.organism.substring(0, protein.organism.indexOf('(') > 0 ? protein.organism.indexOf('(') : protein.organism.length) }
+          genes={ protein.genesPrimary + ((protein.genesSecondary) ? (', ' + protein.genesSecondary) : '') }
+          organism={ protein.organismName?.substring(0, protein.organismName?.indexOf('(') > 0 ? protein.organismName.indexOf('(') : protein.organismName.length) }
           sublocation={ protein.sublocation }
           length={ protein.length }
           />

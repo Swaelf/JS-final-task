@@ -8,6 +8,7 @@ const Search = (props: Interface) => {
 		className={ props.className }
 		onChange={ props.onChange }
 		placeholder={ props.placeholder }
+		value={ props.value }
 		type='search'
 		ref={ props.inputRef }
 		>

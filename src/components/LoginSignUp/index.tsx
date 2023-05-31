@@ -14,15 +14,10 @@ const LoginSignUp = () => {
 
   const handleClick = useCallback(() => {
 
-    console.log('login ', loginRef.current!.value);
-    console.log('password ', passwordRef.current!.value);
-    console.log('passwordConfurm ', passwordConfurmRef.current!.value);
-
-    const auth0 = getAuth();
+    const authRef = getAuth();
     if (passwordRef.current?.value === passwordConfurmRef.current?.value && passwordRef.current?.value) {
 
-      createUserWithEmailAndPassword(auth0, loginRef.current!.value, passwordRef.current!.value).catch(function(error) {
-          // Handle Errors here.
+      createUserWithEmailAndPassword(authRef, loginRef.current!.value, passwordRef.current!.value).catch(function(error) {
           const errorCode = error.code;
           const errorMessage = error.message;
           if (errorCode == 'auth/weak-password') {

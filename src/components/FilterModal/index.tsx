@@ -1,5 +1,4 @@
 import { useCallback, useRef } from 'react';
-import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { Button, Input, Label } from 'src/components';
 import './style.css';
@@ -14,17 +13,14 @@ const FilterModal = () => {
   const anotationRef = useRef(null);
   const lengthRef = useRef(null);
 
-  const auth: string = useSelector((state: any) => state.auth);
-  console.log(auth);
-
   const handleClick = useCallback(() => {
 
-      console.log( geneRef.current?.value );
+      /*console.log( geneRef.current?.value );
       console.log( organismdRef.current?.value );
       console.log( sequenceRef_1.current?.value );
       console.log( sequenceRef_2.current?.value );
       console.log( anotationRef.current?.value );
-      console.log( lengthRef.current?.value );
+      console.log( lengthRef.current?.value );*/
   }, [location]); 
 
 

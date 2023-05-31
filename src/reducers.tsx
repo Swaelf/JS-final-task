@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { proteinInterface } from 'src/interfaces';
 
-const proteinListReducer = (state: (proteinInterface | null)[] = [], action: any ) => {
+const proteinListReducer = (state: (proteinInterface)[] = [], action: any ) => {
   switch (action.type) {
     case 'SET_PROTEIN_LIST':
       return action.payload;
@@ -78,7 +78,7 @@ const loadStateReducer = (state: boolean = loadStateInitial, action: any ) => {
 
 export const rootReducer = combineReducers({
   proteinList: proteinListReducer,
-  search: searchReducer,
+  searchStr: searchReducer,
   auth: authReducer,
   protein: proteinReducer,
   link: linkReducer,
