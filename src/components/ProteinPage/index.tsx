@@ -21,9 +21,14 @@ const ProteinPage = () => {
         organism: protein.organism ? protein.organism.scientificName : '',
         sublocation: protein.comments && protein.comments[0] && protein.comments[0].subcellularLocations ? protein.comments[0].subcellularLocations.map((sub: any) => sub.location.value) : '',
         length: protein.sequence ? protein.sequence.length : 0
-    }    
+    }   
     
-    const [activeButton, setActiveButton] = useState('');
+    let initialTab: string = '/';
+    if (location.pathname.match('details')) { initialTab = 'details' }
+    if (location.pathname.match('feature_viewer')) { initialTab = 'features' }
+    if (location.pathname.match('publications')) { initialTab = 'publications' }
+    
+    const [activeButton, setActiveButton] = useState(initialTab);
 
     const handleDetails = useCallback(() => {
         setActiveButton('details');

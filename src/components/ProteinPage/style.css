@@ -1,7 +1,6 @@
 .proteinPage {
 	display: flex;
 	flex-direction: column;
-	height: calc(100% - 100px);
 	width: 100%;
 	justify-content: flex-start;
 	align-items: flex-start;
