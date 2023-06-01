@@ -19,8 +19,6 @@ const ProteinFeatureView = () => {
                         setElement(result);
                     })
     }, [])
-    
-    console.log(element);
          
     return (
         <div  className='featureView'>
