@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import {useLocation, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { Button, Input, Label } from 'src/components';
@@ -12,6 +12,23 @@ const LoginSignUp = () => {
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordConfurmRef = useRef<HTMLInputElement>(null);
+
+  const [buttonState, setButtonState] = useState(true);
+
+  const handleInput = useCallback(() => {
+
+    if (
+      passwordRef.current?.value === passwordConfurmRef.current?.value && 
+      passwordRef.current?.value && (passwordRef.current?.value.length > 6) &&
+      loginRef.current?.value
+      ) {
+
+      setButtonState(false);
+    } else {
+      setButtonState(true);
+    }
+    
+  }, [])
 
   const handleClick = useCallback(() => {
 
@@ -50,12 +67,14 @@ const LoginSignUp = () => {
         className='login_input' 
         placeholder='email' 
         inputRef={ loginRef }
+        onChange={ handleInput }
         text='Email/login'/>
 
       <Input 
         className='login_input' 
         placeholder='password' 
         inputRef={ passwordRef }
+        onChange={ handleInput }
         type='password'
         text='Pasword'/>
 
@@ -63,6 +82,7 @@ const LoginSignUp = () => {
         className='login_input' 
         placeholder='confurm password' 
         inputRef={ passwordConfurmRef }
+        onChange={ handleInput }
         type='password'
         text='Repeat Pasword'/>
 
@@ -71,6 +91,7 @@ const LoginSignUp = () => {
           className='button button__login--apply' 
           onClick={ handleClick }
           text='Sign Up' 
+          disabled={ buttonState }
           to={ location.pathname }/>
         Already have an account?
         <NavLink to={ location.pathname.replace('/SignUp', '/Login') }>Login</NavLink>

@@ -8,7 +8,6 @@ const Button = (props: Interface) => {
 		return (
 			<span 
 				className={ props.className }
-				onClick={ props.onClick }
 				ref={ props.buttonRef }
 			>{ props.text }</span>
 		)
