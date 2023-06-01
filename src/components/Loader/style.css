@@ -1,18 +1,24 @@
 
+.loaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  height:100%;
+  width: 100%;
+}
+
 .loader {
-    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     font-size: 14px;
-    top: 50%;
-    left: 50%;
     height:200px;
     width: 200px;
-    transform: translate(-50% -50%);
     background-color: lightpink;
     border-radius: 50%;
+    z-index: 1000;
     animation: rotate 15s linear infinite;
 }
 

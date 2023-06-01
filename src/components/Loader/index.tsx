@@ -3,9 +3,12 @@ import './style.css';
 const Loader = () => {
 
   return (
-    <div className='loader'>
-      { 'Loading...' }
+    <div className='loaderContainer'>
+      <div className='loader'>
+        { 'Loading...' }
+      </div>
     </div>
+    
   );
 };
 
