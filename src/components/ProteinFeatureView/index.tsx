@@ -4,18 +4,23 @@ import ProtvistaUniprot from 'protvista-uniprot';
 import { stateInterface } from 'src/interfaces';
 import { Loader } from 'src/components'
 import './style.css';
+import { useEffect, useState } from 'react';
 
 window.customElements.define('protvista-uniprot', ProtvistaUniprot);
 
 const ProteinFeatureView = () => {
 
     const protein = useSelector((state: stateInterface) => state.protein);
-    let element;
+    const [element, setElement] = useState<JSX.Element>();
+
+    useEffect(() => {
+        generateProtVistaElement(protein.primaryAccession as string)
+                    .then((result) => { 
+                        setElement(result);
+                    })
+    }, [])
     
-    generateProtVistaElement(protein.primaryAccession as string)
-                .then((result) => { 
-                    element = result;
-                })
+    console.log(element);
          
     return (
         <div  className='featureView'>
