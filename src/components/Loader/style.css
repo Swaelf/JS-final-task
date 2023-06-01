@@ -10,7 +10,7 @@
     left: 50%;
     height:200px;
     width: 200px;
-    transform: translate(50%, 50%);
+    transform: translate(-50% -50%);
     background-color: lightpink;
     border-radius: 50%;
     animation: rotate 15s linear infinite;

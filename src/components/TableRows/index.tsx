@@ -22,7 +22,6 @@ const TableRows = () => {
 
     const handleScroll = () => {
       if (container) {
-        console.log(container.scrollTop, '---', container.clientHeight);
         if ((Math.floor(container.scrollHeight - container.scrollTop) + 1) === container.clientHeight) {
           if (link) {
             setLoad(true);
@@ -61,7 +60,7 @@ return (
           index={ i }
           entry={ protein.entry }
           entryNames={ protein.entryNames }
-          genes={ protein.genesPrimary + ((protein.genesSecondary) ? (', ' + protein.genesSecondary) : '') }
+          genes={ protein.genesPrimary + ((protein.genesSecondary?.join('') !== '') ? (', ' + protein.genesSecondary?.join(', ')) : '') }
           organism={ protein.organismName?.substring(0, protein.organismName?.indexOf('(') > 0 ? protein.organismName.indexOf('(') : protein.organismName.length) }
           sublocation={ protein.sublocation }
           length={ protein.length }

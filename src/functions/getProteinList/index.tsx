@@ -8,7 +8,6 @@ export default async function getProteinList(path: string = '') {
       await fetch(path, { method: "GET" })
           .then(response => {
             const headers = response.headers;
-            console.log('length =', headers.get('length'))
             proteinList.newlink = headers.get('link')?.substring(1,headers.get('link')?.indexOf('>')) as string;
             return response.json();
           })

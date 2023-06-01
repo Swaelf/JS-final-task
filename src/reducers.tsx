@@ -32,7 +32,7 @@ const authReducer = (state: object = authInitial, action: any ) => {
   }
 };
 
-const currentPathReducer = (state: string = '/', action: any ) => {
+const currentPathReducer = (state: string = '/JS-final-task/', action: any ) => {
   switch (action.type) {
     case 'SET_CURRENT_PATH':
       return action.payload;

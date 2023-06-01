@@ -20,7 +20,7 @@ const SearchBar = () => {
 
 		if (location.search.replace('?query=', '') !== searchStr) { 
 			dispatch(updateSearch(location.search.replace('?query=', '')));
-			dispatch(setCurrentPath(location.search));
+			dispatch(setCurrentPath(location.pathname + location.search));
 		}
 	
 	}, [ location ]);
@@ -34,11 +34,11 @@ const SearchBar = () => {
 		if (searchRef && searchRef.current) {
 			query = encodeURIComponent(searchRef.current.value);
 
-			tempPath = '/search?query=' +  query;
+			tempPath = '/JS-final-task/search?query=' +  query;
 			dispatch(setCurrentPath(tempPath));
 			dispatch(updateSearch(query));
 		} else { 
-			tempPath ='/Home';
+			tempPath ='/JS-final-task/Home';
 			dispatch(setCurrentPath(tempPath));
 			dispatch(updateSearch(''));
 		}

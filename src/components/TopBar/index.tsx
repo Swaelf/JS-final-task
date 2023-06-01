@@ -18,7 +18,7 @@ const TopBar = () => {
 	return (
 		<div className='topbar'> 
 			<NavLink 
-				to='/'
+				to='/JS-final-task/'
 				onClick={ handleClick }
 				className='topbar__link'>
 				Logout

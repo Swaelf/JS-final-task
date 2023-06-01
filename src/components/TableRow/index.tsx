@@ -13,14 +13,13 @@ const TableRow = (props: Interface) => {
   const navigate = useNavigate();
 
   const handleClick = useCallback(() => {
+
     dispatch(setLoadState(true));
     const localpath: string = `https://rest.uniprot.org/uniprotkb/${props.entry}`;
-    const tempPath: string = `/protein/${ props.entry }`;
-    console.log('intest')
+    const tempPath: string = `/JS-final-task/protein/${ props.entry }`;
 
     getProteinInfo(localpath)
           .then((protein) => {
-              console.log('test', protein)
               dispatch(setCurrentProtein(protein));
           })
           .catch((error) => { window.alert(error.message)})
@@ -28,7 +27,6 @@ const TableRow = (props: Interface) => {
 
     navigate(tempPath);
     dispatch(setCurrentPath(tempPath));
-    console.log('go to ', props.entry);
     }, [ props.entry ]); 
 
   return (

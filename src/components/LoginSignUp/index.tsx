@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react';
-import {useLocation } from 'react-router-dom';
+import {useLocation, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { Button, Input, Label } from 'src/components';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
@@ -8,6 +8,7 @@ import './style.css';
 const LoginSignUp = () => {
 
   const location = useLocation();
+  const navigate = useNavigate();
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordConfurmRef = useRef<HTMLInputElement>(null);
@@ -17,17 +18,22 @@ const LoginSignUp = () => {
     const authRef = getAuth();
     if (passwordRef.current?.value === passwordConfurmRef.current?.value && passwordRef.current?.value) {
 
-      createUserWithEmailAndPassword(authRef, loginRef.current!.value, passwordRef.current!.value).catch(function(error) {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          if (errorCode == 'auth/weak-password') {
-            alert('The password is too weak.');
-          } else {
-            window.alert(errorMessage);
-          }
-          console.log(error);
-        });
-    } else { window.alert('passwords are not same!')}
+      createUserWithEmailAndPassword(authRef, loginRef.current!.value, passwordRef.current!.value)
+                .then(() => {
+                  navigate('/JS-final-task/Login');
+                })
+                .catch(function(error) {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  if (errorCode == 'auth/weak-password') {
+                    alert('The password is too weak.');
+                  } else {
+                    alert(errorMessage);
+                  }
+                  console.log(error);
+                  navigate('/JS-final-task/SignUp');
+                });
+    } else { alert('passwords are not same!')}
 
   }, [location]); 
 
@@ -65,7 +71,7 @@ const LoginSignUp = () => {
           className='button button__login--apply' 
           onClick={ handleClick }
           text='Sign Up' 
-          to={ location.pathname.replace('/SignUp', '') }/>
+          to={ location.pathname }/>
         Already have an account?
         <NavLink to={ location.pathname.replace('/SignUp', '/Login') }>Login</NavLink>
       </div>
