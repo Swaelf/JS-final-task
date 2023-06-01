@@ -21,6 +21,7 @@
     background-color: #3C86F433;
     height: 50px;
     width: 150px;
+    min-width: 150px;
 }
 
 .button__filter {
@@ -31,6 +32,8 @@
     border-radius: 10px;
     width: 50px;
     height: 50px;
+    min-width: 50px;
+    min-height: 50px;
 }
 
 .button__sort {
@@ -39,6 +42,8 @@
     background-position: center;
     width: 40px;
     height: 40px;
+    min-width: 40px;
+    min-height: 40px;
 }
 
 .button__sort--disabled {

@@ -1,4 +1,4 @@
 export interface loginInterface {
-    login: string,
-    uid: string
+    login?: string,
+    uid?: string
 }

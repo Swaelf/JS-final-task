@@ -1,5 +1,7 @@
+import { proteinInterface } from 'src/interfaces';
+
 export default async function getProteinList(path: string = '') {
-    let protein: any = {};
+    let protein: proteinInterface = {};
 
     if (path) {
         await fetch(path, { method: "GET" })

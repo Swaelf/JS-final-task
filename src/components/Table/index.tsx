@@ -1,16 +1,24 @@
 import { useSelector } from 'react-redux';
 import { TableRows, TableColumnHeaders } from 'src/components';
+import { useEffect, useState } from 'react';
+import { stateInterface, proteinInterface } from 'src/interfaces';
 import './style.css';
 
 const Table = () => {
 
-  const proteinList: any = useSelector((state: any) => state.proteinList);
-  const search = useSelector((state: string) => state.search);
+  const proteinList: proteinInterface = useSelector((state: stateInterface) => state.proteinList);
+  const searchStr: string = useSelector((state: stateInterface) => state.searchStr);
+
+  const [tempSearch, setTempSearch] = useState('');
+
+  useEffect(() => {
+    setTempSearch(searchStr);
+  }, [])
 
   return (
   	
           <div className='table'>
-            { proteinList.length + ' Search Results for ' + search }
+            { proteinList.length + ' Search Results for ' + tempSearch }
             <TableColumnHeaders />
             <TableRows />    
          </div>

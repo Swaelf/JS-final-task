@@ -3,23 +3,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { Button, Label } from 'src/components';
 import { setCurrentPath } from 'src/actions';
-
+import { geneInterface, locationInterface, proteinInterface, stateInterface } from 'src/interfaces';
 import './style.css';
 
 const ProteinPage = () => {
 
     const dispatch = useDispatch();
 
-    const search = useSelector((state: any) => state.search);
-    const protein = useSelector((state: any) => state.protein);
+    const searchStr = useSelector((state: stateInterface) => state.searchStr);
+    const protein = useSelector((state: stateInterface) => state.protein);
 
-    const proteinClear = {
+    const proteinClear: proteinInterface = {
         entry: protein.primaryAccession ? protein.primaryAccession : '',
         entryNames: protein.uniProtkbId ? protein.uniProtkbId : '',
-        genes: protein.genes && protein.genes[0].geneName && protein.genes[0].geneName.value ? protein.genes[0].geneName.value : '',
-        genesSecondary: protein.genes && protein.genes[0].synonyms ? protein.genes[0].synonyms.map((gene: any) => (' ' + gene.value)) : [],
-        organism: protein.organism ? protein.organism.scientificName : '',
-        sublocation: protein.comments && protein.comments[0] && protein.comments[0].subcellularLocations ? protein.comments[0].subcellularLocations.map((sub: any) => sub.location.value) : '',
+        genesPrimary: protein.genes && protein.genes[0].geneName && protein.genes[0].geneName.value ? protein.genes[0].geneName.value : '',
+        genesSecondary: protein.genes && protein.genes[0].synonyms ? protein.genes[0].synonyms.map((gene: geneInterface) => gene.value ? gene.value : '') : [''],
+        organismName: protein.organism ? protein.organism.scientificName : '',
+        sublocation: protein.comments && protein.comments[0] && protein.comments[0].subcellularLocations ? protein.comments[0].subcellularLocations.map((sub: locationInterface) => (sub.location?.value)).join(', ') : '',
         length: protein.sequence ? protein.sequence.length : 0
     }   
     
@@ -32,17 +32,17 @@ const ProteinPage = () => {
 
     const handleDetails = useCallback(() => {
         setActiveButton('details');
-        dispatch(setCurrentPath(`/protein/${ proteinClear.entry }/details`));
+        dispatch(setCurrentPath(`/JS-final-task/protein/${ proteinClear.entry }/details`));
     }, []);
 
     const handleFeatures = useCallback(() => {
         setActiveButton('features');
-        dispatch(setCurrentPath(`/protein/${ proteinClear.entry }/feature_viewer`));
+        dispatch(setCurrentPath(`/JS-final-task/protein/${ proteinClear.entry }/feature_viewer`));
     }, [])
 
     const handlePublications = useCallback(() => {
         setActiveButton('publications');
-        dispatch(setCurrentPath(`/protein/${ proteinClear.entry }/publications`));
+        dispatch(setCurrentPath(`/JS-final-task/protein/${ proteinClear.entry }/publications`));
     }, [])
 
 
@@ -52,7 +52,7 @@ const ProteinPage = () => {
                 { proteinClear.entry + '/' + proteinClear.entryNames }
                 <Label 
                     className='itemLabel_organism'
-                    text={ proteinClear.organism }/>  
+                    text={ proteinClear.organismName }/>  
             </div>
                 
             <div className='protein__string'>
@@ -68,7 +68,7 @@ const ProteinPage = () => {
             </div>
 
             <div className='protein__string'> 
-               { proteinClear.genes + ((proteinClear.genesSecondary != '') ? (', ' + protein.genesSecondary) : '') }
+               { proteinClear.genesPrimary + (proteinClear.genesSecondary?.join('') !== '' ? ', ' + proteinClear.genesSecondary?.join(', ') : '') }
             </div>
 
             <div className='protein_button_container'>
@@ -77,25 +77,25 @@ const ProteinPage = () => {
                         className={ activeButton==='details' ? 'protein__links protein__links--active' : 'protein__links' }
                         text='Details' 
                         onClick={ handleDetails }
-                        to={ `/protein/${ proteinClear.entry }/details` }/>
+                        to={ `/JS-final-task/protein/${ proteinClear.entry }/details` }/>
 
                     <Button 
                         className={ activeButton==='features' ? 'protein__links protein__links--active' : 'protein__links' }
                         text='Feature viewer' 
                         onClick={ handleFeatures }
-                        to={ `/protein/${ proteinClear.entry }/feature_viewer`}/>
+                        to={ `/JS-final-task/protein/${ proteinClear.entry }/feature_viewer`}/>
 
                     <Button 
                         className={ activeButton==='publications' ? 'protein__links protein__links--active' : 'protein__links' }
                         text='Publications' 
                         onClick={ handlePublications }
-                        to={ `/protein/${ proteinClear.entry }/publications`}/>
+                        to={ `/JS-final-task/protein/${ proteinClear.entry }/publications`}/>
                 </div>
 
                 <Button 
                     className={'protein__links protein__links--home'}
                     text='to Search' 
-                    to={ '/search?query=' + search }/>
+                    to={ '/JS-final-task/search?query=' + searchStr }/>
             </div>
             <Outlet/>
         </div>

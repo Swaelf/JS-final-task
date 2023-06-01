@@ -1,5 +1,5 @@
-import { useCallback, useRef } from 'react';
-import {useLocation } from 'react-router-dom';
+import { useCallback, useRef, useState } from 'react';
+import {useLocation, useNavigate } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import { Button, Input, Label } from 'src/components';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
@@ -8,31 +8,49 @@ import './style.css';
 const LoginSignUp = () => {
 
   const location = useLocation();
+  const navigate = useNavigate();
   const loginRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordConfurmRef = useRef<HTMLInputElement>(null);
 
+  const [buttonState, setButtonState] = useState(true);
+
+  const handleInput = useCallback(() => {
+
+    if (
+      passwordRef.current?.value === passwordConfurmRef.current?.value && 
+      passwordRef.current?.value && (passwordRef.current?.value.length > 6) &&
+      loginRef.current?.value
+      ) {
+
+      setButtonState(false);
+    } else {
+      setButtonState(true);
+    }
+    
+  }, [])
+
   const handleClick = useCallback(() => {
 
-    console.log('login ', loginRef.current!.value);
-    console.log('password ', passwordRef.current!.value);
-    console.log('passwordConfurm ', passwordConfurmRef.current!.value);
-
-    const auth0 = getAuth();
+    const authRef = getAuth();
     if (passwordRef.current?.value === passwordConfurmRef.current?.value && passwordRef.current?.value) {
 
-      createUserWithEmailAndPassword(auth0, loginRef.current!.value, passwordRef.current!.value).catch(function(error) {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          if (errorCode == 'auth/weak-password') {
-            alert('The password is too weak.');
-          } else {
-            window.alert(errorMessage);
-          }
-          console.log(error);
-        });
-    } else { window.alert('passwords are not same!')}
+      createUserWithEmailAndPassword(authRef, loginRef.current!.value, passwordRef.current!.value)
+                .then(() => {
+                  navigate('/JS-final-task/Login');
+                })
+                .catch(function(error) {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  if (errorCode == 'auth/weak-password') {
+                    alert('The password is too weak.');
+                  } else {
+                    alert(errorMessage);
+                  }
+                  console.log(error);
+                  navigate('/JS-final-task/SignUp');
+                });
+    } else { alert('passwords are not same!')}
 
   }, [location]); 
 
@@ -49,12 +67,14 @@ const LoginSignUp = () => {
         className='login_input' 
         placeholder='email' 
         inputRef={ loginRef }
+        onChange={ handleInput }
         text='Email/login'/>
 
       <Input 
         className='login_input' 
         placeholder='password' 
         inputRef={ passwordRef }
+        onChange={ handleInput }
         type='password'
         text='Pasword'/>
 
@@ -62,6 +82,7 @@ const LoginSignUp = () => {
         className='login_input' 
         placeholder='confurm password' 
         inputRef={ passwordConfurmRef }
+        onChange={ handleInput }
         type='password'
         text='Repeat Pasword'/>
 
@@ -70,7 +91,8 @@ const LoginSignUp = () => {
           className='button button__login--apply' 
           onClick={ handleClick }
           text='Sign Up' 
-          to={ location.pathname.replace('/SignUp', '') }/>
+          disabled={ buttonState }
+          to={ location.pathname }/>
         Already have an account?
         <NavLink to={ location.pathname.replace('/SignUp', '/Login') }>Login</NavLink>
       </div>

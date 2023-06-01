@@ -23,20 +23,20 @@ const App = () => {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path='/' element={<PageHome />}>
-        <Route path='/Login' element={<LoginModal/>}/>
-        <Route path='/SignUp' element={<LoginSignUp/>}/>
-        <Route path='/' element={<LoginInitial/>}/> 
-        <Route path='/Home' element={<div> <SearchBar/> <TablePlaceHolder/> <Outlet/> </div>}>
-          <Route path='/Home/filter' element={<FilterModal/>}/>
+      <Route path='/JS-final-task/' element={<PageHome />}>
+        <Route path='/JS-final-task/Login' element={<LoginModal/>}/>
+        <Route path='/JS-final-task/SignUp' element={<LoginSignUp/>}/>
+        <Route path='/JS-final-task/' element={<LoginInitial/>}/> 
+        <Route path='/JS-final-task/Home' element={<div> <SearchBar/> <TablePlaceHolder/> <Outlet/> </div>}>
+          <Route path='/JS-final-task/Home/filter' element={<FilterModal/>}/>
         </Route>
-        <Route path='/search' element={<div> <SearchBar/> <Table/> <Outlet/> </div>}>
-          <Route path='/search/filter' element={<FilterModal/>}/>
+        <Route path='/JS-final-task/search' element={<div> <SearchBar/> <Table/> <Outlet/> </div>}>
+          <Route path='/JS-final-task/search/filter' element={<FilterModal/>}/>
         </Route>
-        <Route path='/protein/:id' element={<ProteinPage/>}> 
-          <Route path='/protein/:id/details' element={<ProteinDetails />}/>
-          <Route path='/protein/:id/feature_viewer' element={<ProteinFeatureView />}/>
-          <Route path='/protein/:id/publications' element={<ProteinPublications />}/>
+        <Route path='/JS-final-task/protein/:id' element={<ProteinPage/>}> 
+          <Route path='/JS-final-task/protein/:id/details' element={<ProteinDetails />}/>
+          <Route path='/JS-final-task/protein/:id/feature_viewer' element={<ProteinFeatureView />}/>
+          <Route path='/JS-final-task/protein/:id/publications' element={<ProteinPublications />}/>
         </Route>
         <Route path='*' element={<Error404/>}/>
       </Route>

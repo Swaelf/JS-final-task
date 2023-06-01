@@ -1,35 +1,46 @@
 
+.loaderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  height:100%;
+  width: 100%;
+}
+
 .loader {
-    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     font-size: 14px;
-    top: 50%;
-    left: 50%;
     height:200px;
     width: 200px;
-    transform: translate(50%, 50%);
     background-color: lightpink;
     border-radius: 50%;
+    z-index: 1000;
     animation: rotate 15s linear infinite;
 }
 
 @keyframes rotate {
     0%{
         transform: rotateY(0deg);
+        background-color: lightpink;
       }
       25%{
         transform: rotateY(90deg);
+        background-color: blue;
       }
       50%{
         transform: rotateY(180deg);
+        background-color: red;
       }
       75%{
         transform: rotateY(270deg);
+        background-color: blue;
       }
       100%{
         transform: rotateY(360deg);
+        background-color: lightpink;
       }
 }
